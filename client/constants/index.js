@@ -41,8 +41,8 @@ export const featured = {
       image: require("../assets/images/bdcd233971b7c81bf77e1fa4471280eb (1).webp"),
 
       description: "Hot and spicy pizzas",
-      lng: 38.2145602,
-      lat: -85.5324269,
+      latitude: 11.054961,
+      longitude: 106.666924,
       address: "434 second street",
       stars: 4,
       reviews: "4.4k",
@@ -54,59 +54,52 @@ export const featured = {
           description: "cheezy garlic pizza",
           price: 10,
           image: require("../assets/images/download (1) (1).jpeg"),
-
         },
         {
           id: 2,
           name: "pizza",
           description: "cheezy garlic pizza 2",
           price: 10,
-          image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (2) (1).jpeg"),
         },
         {
           id: 3,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (1) (1).jpeg"),
         },
         {
           id: 4,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (3) (1).jpeg"),
         },
         {
           id: 5,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (5) (1).jpeg"),
         },
         {
           id: 6,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (6) (1).jpeg"),
         },
-
       ],
     },
     {
       id: 2,
       name: "Papa Johns",
-          image: require("../assets/images/download (1) (1).jpeg"),
+      image: require("../assets/images/download (1) (1).jpeg"),
 
       description: "Hot and spicy pizzas",
-      lng: 38.2145602,
-      lat: -85.5324269,
+      latitude: 11.052988,
+      longitude: 106.667138,
       address: "434 second street",
       stars: 4,
       reviews: "4.4k",
@@ -117,60 +110,53 @@ export const featured = {
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (2) (1).jpeg"),
         },
         {
           id: 2,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (5) (1).jpeg"),
         },
         {
           id: 3,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (1) (1).jpeg"),
         },
         {
           id: 4,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (6) (1).jpeg"),
         },
         {
           id: 5,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (7).jpeg"),
         },
         {
           id: 6,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/download (1) (1).jpeg"),
-
+          image: require("../assets/images/download (1) (1).jpeg"),
         },
-
       ],
     },
     {
       id: 3,
       name: "Papa Johns",
-          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
+      image: require("../assets/images/icons8-cupcake-emoji-96.png"),
 
       description: "Hot and spicy pizzas",
-      lng: 38.2145602,
-      lat: -85.5324269,
+      latitude: 11.052988,
+      longitude: 106.667138,
       address: "434 second street",
       stars: 4,
       reviews: "4.4k",
@@ -181,60 +167,53 @@ export const featured = {
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 2,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 3,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 4,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 5,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 6,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
-
       ],
     },
     {
       id: 4,
       name: "Papa Johns",
-          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
+      image: require("../assets/images/icons8-cupcake-emoji-96.png"),
 
       description: "Hot and spicy pizzas",
-      lng: 38.2145602,
-      lat: -85.5324269,
+      latitude: 11.052988,
+      longitude: 106.667138,
       address: "434 second street",
       stars: 4,
       reviews: "4.4k",
@@ -245,50 +224,43 @@ export const featured = {
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 2,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 3,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 4,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 5,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
         {
           id: 6,
           name: "pizza",
           description: "cheezy garlic pizza",
           price: 10,
-              image: require("../assets/images/icons8-cupcake-emoji-96.png"),
-
+          image: require("../assets/images/icons8-cupcake-emoji-96.png"),
         },
-
       ],
     },
   ],

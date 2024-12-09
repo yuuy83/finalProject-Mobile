@@ -1,8 +1,9 @@
 import { useRoute } from "@react-navigation/native";
 import React from "react";
-import { Image, ScrollView, View, StyleSheet, Text } from "react-native";
+import { Image, ScrollView, View, StyleSheet, Text} from "react-native";
 import DishRow from "../components/dishRow";
 import CartIcon from "../components/cartIcon";
+import { StatusBar } from "expo-status-bar";
 
 export default function RestaurantScreen() {
   const { params } = useRoute();
@@ -11,6 +12,7 @@ export default function RestaurantScreen() {
   return (
     <View style={styles.container}>
       <CartIcon/>
+      <StatusBar style="light"/>
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         {/* Restaurant Image */}
         <Image style={styles.image} source={item.image} />
