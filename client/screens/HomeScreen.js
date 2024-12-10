@@ -64,7 +64,7 @@ export default function HomeScreen() {
         <Categorises />
         {/* Caegorises*/}
         <View>
-          {[featured, featured, featured].map((item, index) => {
+          {[featured, featured].map((item, index) => {
             return (
               <FeaturedRow
                 key={index}

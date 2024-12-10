@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -11,11 +11,38 @@ import * as Icon from "react-native-feather";
 import { featured } from "../constants";
 import { themeColors } from "../theme";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRestaurant } from "../slices/restaurantSlice";
+import {
+  removeFromCart,
+  selectCartItem,
+  selectCartTotal,
+} from "../slices/cartSlice";
 
 export default function CartScreen() {
-  const restaurant = featured.restaurants[1];
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
+  const cartItems = useSelector(selectCartItem);
+  const cartotal = useSelector(selectCartTotal);
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
 
+  const deliveryFee = getRandomNumber(1, 50);
+  const [groupedItems, setGroupedItem] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const items = cartItems.reduce((group, item) => {
+      if (group[item.id]) {
+        group[item.id].push(item);
+      } else {
+        group[item.id] = [item];
+      }
+      return group;
+    }, {});
+    setGroupedItem(items);
+  }, [cartItems]);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -58,47 +85,51 @@ export default function CartScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 50 }}
       >
-        {restaurant.dishes.map((dish, index) => (
-          <View key={index} style={styles.dishContainer}>
-            <Text style={styles.dishQuantity}>2x</Text>
-            <Image source={dish.image} style={styles.dishImage} />
-            <View style={styles.dishInfo}>
-              <Text style={styles.dishName}>{dish.name}</Text>
-              <Text style={styles.dishDescription}>{dish.description}</Text>
+        {Object.entries(groupedItems).map(([key, items]) => {
+          let dish = items[0];
+          return (
+            <View key={key} style={styles.dishContainer}>
+              <Text style={styles.dishQuantity}>{items.length} x</Text>
+              <Image source={dish.image} style={styles.dishImage} />
+              <View style={styles.dishInfo}>
+                <Text style={styles.dishName}>{dish.name}</Text>
+                <Text style={styles.dishDescription}>{dish.description}</Text>
+              </View>
+              <View style={styles.priceAndControl}>
+                <Text style={styles.dishPrice}>${dish.price}</Text>
+                <TouchableOpacity
+                  style={[
+                    styles.controlButton,
+                    { backgroundColor: themeColors.bgColor(1) },
+                  ]}
+                  onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                >
+                  <Icon.Minus
+                    width={20}
+                    height={20}
+                    strokeWidth={3}
+                    stroke="white"
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.priceAndControl}>
-              <Text style={styles.dishPrice}>${dish.price}</Text>
-              <TouchableOpacity
-                style={[
-                  styles.controlButton,
-                  { backgroundColor: themeColors.bgColor(1) },
-                ]}
-              >
-                <Icon.Minus
-                  width={20}
-                  height={20}
-                  strokeWidth={3}
-                  stroke="white"
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
+          );
+        })}
       </ScrollView>
 
       {/* Summary Section */}
       <View style={styles.summaryContainer}>
         <View style={styles.summaryRow}>
           <Text style={styles.summaryText}>Subtotal</Text>
-          <Text style={styles.summaryText}>$20</Text>
+          <Text style={styles.summaryText}>${cartotal}</Text>
         </View>
         <View style={styles.summaryRow}>
           <Text style={styles.summaryText}>Delivery Fee</Text>
-          <Text style={styles.summaryText}>$5</Text>
+          <Text style={styles.summaryText}>${deliveryFee}</Text>
         </View>
         <View style={styles.summaryRow}>
           <Text style={[styles.summaryText, styles.boldText]}>Total</Text>
-          <Text style={[styles.summaryText, styles.boldText]}>$25</Text>
+          <Text style={[styles.summaryText, styles.boldText]}>${deliveryFee + cartotal}</Text>
         </View>
       </View>
 

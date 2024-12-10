@@ -1,25 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import { featured } from "../constants";
-import { themeColors } from "../theme";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Icon from "react-native-feather";
+import MapView, { Marker } from "react-native-maps";
+import { useDispatch, useSelector } from "react-redux";
+import { themeColors } from "../theme";
+import { selectRestaurant } from "../slices/restaurantSlice";
+import { emptyCart } from "../slices/cartSlice";
 
 const DeliveryScreen = () => {
-  const restaurant = featured.restaurants[0];
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const cancleOrder = () => {
+    navigation.navigate("Home");
+    dispatch(emptyCart());
+  };
   return (
     <View style={styles.container}>
-      
       {/* Map Section */}
       <MapView
         style={styles.map}
@@ -61,11 +60,8 @@ const DeliveryScreen = () => {
             <Text style={styles.riderRole}>Your rider</Text>
           </View>
           <TouchableOpacity
-           onPress={() => navigation.navigate('Home')}
-            style={[
-              styles.controlButton,
-              { backgroundColor: "white" },
-            ]}
+            onPress={cancleOrder}
+            style={[styles.controlButton, { backgroundColor: "white" }]}
           >
             <Icon.X width={50} height={50} strokeWidth={3} stroke="red" />
           </TouchableOpacity>
@@ -77,7 +73,7 @@ const DeliveryScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop:"auto",
+    paddingTop: "auto",
     flex: 1,
   },
   halfText: {
@@ -90,10 +86,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   controlButton: {
-    width:"auto" ,
+    width: "auto",
     height: "auto",
     borderRadius: 30,
-    marginLeft:"auto",
+    marginLeft: "auto",
     justifyContent: "center",
     alignItems: "center",
   },

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
+  items: [],//the cart slice contains an empty array called items
 };
 
 export const cartSlice = createSlice({
-  name: "cart",
+  name: "cart",//which identifies this slice.
   initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -24,16 +24,18 @@ export const cartSlice = createSlice({
       state.items = newCart;
     },
     emptyCart: (state, action) => {
-      state.item = [];
+      state.items = [];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setRestaurant, removeFromCart, emptyCart } = cartSlice.actions;
-export const selectItemCart = (state) => state.cart.items;
+export const { addToCart, removeFromCart, emptyCart } = cartSlice.actions;
+export const selectCartItem = (state) => state.cart.items;
 export const selectCartItemById = (state, id) =>
   state.cart.items.filter((item) => item.id == id);
+
 export const selectCartTotal = (state) =>
   state.cart.items.reduce((total, item) => (total = total + item.price), 0);
+
 export default cartSlice.reducer;

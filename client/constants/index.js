@@ -37,7 +37,7 @@ export const featured = {
   restaurants: [
     {
       id: 1,
-      name: "Papa Johns",
+      name: "Papa John",
       image: require("../assets/images/bdcd233971b7c81bf77e1fa4471280eb (1).webp"),
 
       description: "Hot and spicy pizzas",

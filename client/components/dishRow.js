@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  removeFromCart,
+  selectCartItemById,
+} from "../slices/cartSlice";
 
 export default function DishRow({ item }) {
-  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
+  const totalItems = useSelector((state) => selectCartItemById(state, item.id));
 
-  const increaseQuantity = () => setQuantity(quantity + 1);
+  const increaseQuantity = () => {
+    dispatch(addToCart({ ...item }));
+  };
   const decreaseQuantity = () => {
-    if (quantity > 0) setQuantity(quantity - 1);
+    dispatch(removeFromCart({ id: item.id }));
   };
 
   return (
@@ -33,14 +36,23 @@ export default function DishRow({ item }) {
         {/* Quantity Controls */}
         <View style={styles.quantityContainer}>
           <TouchableOpacity
-            style={[styles.controlButton, { backgroundColor: themeColors.bgColor(1) }]}
+            disabled={!totalItems.length}
+            style={[
+              styles.controlButton,
+              { backgroundColor: themeColors.bgColor(1) },
+            ]}
             onPress={decreaseQuantity}
           >
             <Icon.Minus height={20} width={20} stroke="white" />
           </TouchableOpacity>
-          <Text style={styles.quantityText}>{quantity}</Text>
+          
+          <Text style={styles.quantityText}>{totalItems.length}</Text>
+          
           <TouchableOpacity
-            style={[styles.controlButton, { backgroundColor: themeColors.bgColor(1) }]}
+            style={[
+              styles.controlButton,
+              { backgroundColor: themeColors.bgColor(1) },
+            ]}
             onPress={increaseQuantity}
           >
             <Icon.Plus height={20} width={20} stroke="white" />

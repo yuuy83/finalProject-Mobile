@@ -2,24 +2,36 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { themeColors } from "../theme";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectCartItem, selectCartTotal } from "../slices/cartSlice";
 
 export default function CartIcon() {
   const navigation = useNavigation();
+  const cartItems = useSelector(selectCartItem);
+  const cartTotal = useSelector(selectCartTotal);
+  if (!cartItems.length) return;
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-      onPress={() => navigation.navigate('Cart')}
-      style={[styles.cartButton, { backgroundColor: themeColors.bgColor(1) }]}>
+        onPress={() => navigation.navigate("Cart")}
+        style={[styles.cartButton, { backgroundColor: themeColors.bgColor(1) }]}
+      >
         {/* Cart Count */}
-        <View style={[styles.cartCount, { backgroundColor: "rgba(255,255,255,0.3)" }]}>
-          <Text style={styles.cartCountText}>3</Text>
+        <View
+          style={[
+            styles.cartCount,
+            { backgroundColor: "rgba(255,255,255,0.3)" },
+          ]}
+        >
+          <Text style={styles.cartCountText}>{cartItems.length}</Text>
         </View>
 
         {/* View Cart */}
         <Text style={styles.cartText}>View Cart</Text>
 
         {/* Total Amount */}
-        <Text style={styles.cartTotal}>$23</Text>
+        <Text style={styles.cartTotal}>${cartTotal}</Text>
       </TouchableOpacity>
     </View>
   );
