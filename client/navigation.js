@@ -8,6 +8,8 @@ import RestaurantScreen from "./screens/RestaurantScreen";
 import CartScreen from "./screens/CartScreen";
 import OrderPrepairingScreen from "./screens/OrderPrepairingScreen";
 import DeliveryScreen from "./screens/DeliveryScreen";
+import SignupScreen from "./screens/SignupScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function Navigation() {
   return (
@@ -22,6 +24,8 @@ export default function Navigation() {
         <Stack.Screen name="Cart" options={{presentation:'modal'}} component={CartScreen} />
         <Stack.Screen name="OrderPrepairing" options={{presentation:'fullScreenModal'}} component={OrderPrepairingScreen} />
         <Stack.Screen name="Delivery"  options={{presentation:'fullScreenModal'}} component={DeliveryScreen} />
+        <Stack.Screen name="Login" options={{presentation:'fullScreenModal'}} component={LoginScreen} ></Stack.Screen>
+        <Stack.Screen name="Register" options={{presentation:'fullScreenModal'}} component={SignupScreen} ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

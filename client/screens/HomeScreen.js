@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import { StyleSheet, Text, TextInput, View, ScrollView,Button } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -7,8 +7,11 @@ import { themeColors } from "../theme";
 import Categorises from "../components/categorises";
 import { featured } from "../constants";
 import FeaturedRow from "../components/featuredRow";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
@@ -74,6 +77,13 @@ export default function HomeScreen() {
               />
             );
           })}
+        </View>
+        {/* Login Button */}
+        <View style={styles.buttonContainer}>  
+          <Button
+            title="Go to Login"
+            onPress={() => navigation.navigate('Login')} // Navigate to LoginScreen
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
