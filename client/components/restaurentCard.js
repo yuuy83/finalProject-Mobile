@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { urlFor } from "../sanity";
 
 export default function RestaurantCard({ item }) {
   const navigation = useNavigation();
@@ -16,7 +17,7 @@ export default function RestaurantCard({ item }) {
     >
       <View style={styles.card}>
         {/* Restaurant Image */}
-        <Image style={styles.image} source={item.image} />
+        <Image style={styles.image} source={{uri: urlFor(item.image).url()}} />
 
         {/* Restaurant Details */}
         <View style={styles.details}>
@@ -31,7 +32,7 @@ export default function RestaurantCard({ item }) {
             />
             <Text style={styles.stars}>{item.stars}</Text>
             <Text style={styles.reviews}>
-              ({item.reviews} reviews) .<Text>{item.category} </Text>
+              ({item.reviews} reviews) .<Text>{item?.type?.name} </Text>
             </Text>
           </View>
         </View>

@@ -12,6 +12,8 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "@reduxjs/toolkit": "^2.4.0",
+    "@sanity/client": "^6.24.1",
+    "@sanity/image-url": "^1.1.0",
     "expo": "~52.0.14",
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
@@ -26,7 +28,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "metro-react-native-babel-preset": "^0.77.0"
+    "@types/react": "~18.3.12",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "typescript": "^5.3.3"
   },
   "private": true
 }

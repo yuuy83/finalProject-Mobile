@@ -1,9 +1,33 @@
-import React, { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View, Image, StyleSheet } from "react-native";
-import { categories } from "../constants";
+import React, { useEffect, useState } from "react";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  StyleSheet,
+} from "react-native";
+import { getCategories } from "../api";
+import { urlFor } from "../sanity";
 
 export default function Categories() {
   const [activeCategory, setActiveCategory] = useState(null);
+  let [categoryList, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setCategories(data);
+          setActiveCategory(data[0]?._id || null); // Set initial active category
+        } else {
+          console.error("Invalid data format:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
 
   return (
     <View>
@@ -14,26 +38,29 @@ export default function Categories() {
           paddingBottom: 20,
         }}
       >
-        {categories.map((category) => {
-          const isActive = category.id === activeCategory;
+        {categoryList.map((category, index) => {
+          const isActive = category._id === activeCategory;
 
           return (
-            <TouchableOpacity
-              key={category.id}
-              style={styles.categoryContainer}
-              onPress={() => setActiveCategory(category.id)}
-            >
-              <View style={styles.textImageContainer}>
+            <View key={index} style={styles.textImageContainer}>
+              <TouchableOpacity
+                style={styles.categoryContainer}
+                onPress={() => setActiveCategory(category._id)}
+              >
                 <Image
                   style={[
                     styles.categoryImage,
-                    isActive && styles.activeCategoryImage, // Change border color around the image
+                    isActive && styles.activeCategoryImage,
                   ]}
-                  source={category.image}
+                  source={{
+                    uri: category.image
+                      ? urlFor(category.image).url()
+                      : "https://via.placeholder.com/150", // Fallback image
+                  }}
                 />
                 <Text style={styles.categoryText}>{category.name}</Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           );
         })}
       </ScrollView>
@@ -49,24 +76,26 @@ const styles = StyleSheet.create({
   textImageContainer: {
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1, // Add border around the text and image
-    borderColor: "#ddd", // Default border color
-    borderRadius: 10,
-    padding: 8,
+    padding: 10, // Padding inside the container
+    backgroundColor: "#fff", // White background
+
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2, // Add shadow effect (Android)
   },
   categoryImage: {
-    width: 45,
-    height: 45,
-    borderRadius: 22.5,
-    borderWidth: 2, // Add border around the image
-    borderColor: "#ddd", // Default border color
+    width: 50, // Slightly larger image size
+    height: 50,
+    borderRadius: 25, // Full round image
   },
   activeCategoryImage: {
-    borderColor: "#f97316", // Change the border color for the active image
+    borderColor: "#f97316", // Highlighted orange border for active
+    borderWidth: 2,
   },
   categoryText: {
-    fontSize: 14,
-    marginTop: 5,
-    color: "#333", // Default text color
+    fontSize: 12, // Smaller text size
+    marginTop: 8,
+    color: "#333", // Default dark text color
+    fontWeight: "500", // Medium font weight
   },
 });

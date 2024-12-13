@@ -18,6 +18,7 @@ import {
   selectCartItem,
   selectCartTotal,
 } from "../slices/cartSlice";
+import { urlFor } from "../sanity";
 
 export default function CartScreen() {
   const restaurant = useSelector(selectRestaurant);
@@ -90,7 +91,7 @@ export default function CartScreen() {
           return (
             <View key={key} style={styles.dishContainer}>
               <Text style={styles.dishQuantity}>{items.length} x</Text>
-              <Image source={dish.image} style={styles.dishImage} />
+              <Image source={{uri: urlFor(dish.image).url()}} style={styles.dishImage} />
               <View style={styles.dishInfo}>
                 <Text style={styles.dishName}>{dish.name}</Text>
                 <Text style={styles.dishDescription}>{dish.description}</Text>

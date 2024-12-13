@@ -5,7 +5,8 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import CartIcon from "../components/cartIcon";
 import DishRow from "../components/dishRow";
-import { selectRestaurant, setRestaurant } from "../slices/restaurantSlice";
+import { urlFor } from "../sanity";
+import { setRestaurant } from "../slices/restaurantSlice";
 
 export default function RestaurantScreen() {
   const { params } = useRoute();
@@ -14,7 +15,7 @@ export default function RestaurantScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (item && item.id) {
+    if (item && item._id) {
       dispatch(setRestaurant({ ...item }));
     }
   },[])
@@ -24,7 +25,7 @@ export default function RestaurantScreen() {
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         {/* Restaurant Image */}
-        <Image style={styles.image} source={item.image} />
+        <Image style={styles.image} source={{uri: urlFor(item.image).url()}} />
 
         {/* Content Container */}
         <View style={styles.contentContainer}>
@@ -39,7 +40,7 @@ export default function RestaurantScreen() {
                 />
                 <Text style={styles.stars}>{item.stars}</Text>
                 <Text style={styles.reviews}>
-                  ({item.reviews} reviews`) .<Text>{item.category} </Text>
+                  ({item.reviews} reviews`) .<Text>{item?.type?.name} </Text>
                 </Text>
               </View>
             </View>

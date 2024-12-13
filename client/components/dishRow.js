@@ -8,23 +8,24 @@ import {
   removeFromCart,
   selectCartItemById,
 } from "../slices/cartSlice";
+import { urlFor } from "../sanity";
 
 export default function DishRow({ item }) {
   const dispatch = useDispatch();
-  const totalItems = useSelector((state) => selectCartItemById(state, item.id));
+  const totalItems = useSelector((state) => selectCartItemById(state, item._id));
 
   const increaseQuantity = () => {
     dispatch(addToCart({ ...item }));
   };
   const decreaseQuantity = () => {
-    dispatch(removeFromCart({ id: item.id }));
+    dispatch(removeFromCart({ id: item._id }));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         {/* Dish Image */}
-        <Image style={styles.image} source={item.image} />
+        <Image style={styles.image} source={{uri: urlFor(item.image).url()}} />
 
         {/* Dish Details */}
         <View style={styles.details}>

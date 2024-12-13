@@ -1,5 +1,12 @@
-import { StyleSheet, Text, TextInput, View, ScrollView,Button } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  Button,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
@@ -8,9 +15,17 @@ import Categorises from "../components/categorises";
 import { featured } from "../constants";
 import FeaturedRow from "../components/featuredRow";
 import { useNavigation } from "@react-navigation/native";
+import { getFeaturedRestaurants, getFeatureRestaurantById } from "../api";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const [featuredRestaurants, setFeaturedRestaurants] = useState([]);
+
+  useEffect(() => {
+    getFeaturedRestaurants().then((data) => {
+      setFeaturedRestaurants(data);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,22 +82,22 @@ export default function HomeScreen() {
         <Categorises />
         {/* Caegorises*/}
         <View>
-          {[featured, featured].map((item, index) => {
+          {featuredRestaurants.map((item, index) => {
             return (
               <FeaturedRow
                 key={index}
-                title={item.title}
+                title={item.name}
                 restaurant={item.restaurants}
-                description={item.description}
+               
               />
             );
           })}
         </View>
         {/* Login Button */}
-        <View style={styles.buttonContainer}>  
+        <View style={styles.buttonContainer}>
           <Button
             title="Go to Login"
-            onPress={() => navigation.navigate('Login')} // Navigate to LoginScreen
+            onPress={() => navigation.navigate("Login")} // Navigate to LoginScreen
           />
         </View>
       </ScrollView>
