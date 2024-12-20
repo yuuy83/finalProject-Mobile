@@ -35,10 +35,10 @@ export default function CartScreen() {
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
-      if (group[item.id]) {
-        group[item.id].push(item);
+      if (group[item._id]) {
+        group[item._id].push(item);
       } else {
-        group[item.id] = [item];
+        group[item._id] = [item];
       }
       return group;
     }, {});
@@ -103,7 +103,7 @@ export default function CartScreen() {
                     styles.controlButton,
                     { backgroundColor: themeColors.bgColor(1) },
                   ]}
-                  onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                  onPress={() => dispatch(removeFromCart({ id: dish._id }))}
                 >
                   <Icon.Minus
                     width={20}

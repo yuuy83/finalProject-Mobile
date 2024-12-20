@@ -30,6 +30,7 @@ const DeliveryScreen = () => {
         }}
         mapType="standard"
       >
+        
         <Marker
           coordinate={{
             latitude: restaurant.latitude,

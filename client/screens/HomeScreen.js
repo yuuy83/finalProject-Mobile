@@ -1,21 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 import {
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ScrollView,
-  Button,
+  TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
-import { themeColors } from "../theme";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { getFeaturedRestaurants } from "../api";
 import Categorises from "../components/categorises";
-import { featured } from "../constants";
 import FeaturedRow from "../components/featuredRow";
-import { useNavigation } from "@react-navigation/native";
-import { getFeaturedRestaurants, getFeatureRestaurantById } from "../api";
+import { themeColors } from "../theme";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -31,76 +30,56 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
 
-      {/* Search Bar Container */}
+      {/* Search Bar */}
       <View style={styles.searchContainer}>
-        {/* Search Icon */}
-        <Icon.Search
-          height={25}
-          width={25}
-          stroke="gray"
-          style={styles.searchIcon}
-        />
-
-        {/* Search Input */}
+        <Icon.Search height={25} width={25} stroke="gray" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search for restaurants, food..."
           placeholderTextColor="gray"
         />
-
-        {/* Location Section */}
         <View style={styles.locationContainer}>
           <Icon.MapPin height={20} width={20} stroke="gray" />
           <Text style={styles.locationText}>Binh Duong</Text>
         </View>
-
-        {/* Filter Icon */}
-        <View
-          style={[
-            styles.filterContainer,
-            { backgroundColor: themeColors.bgColor(1) },
-          ]}
-        >
-          <Icon.Sliders
-            height={25}
-            width={25}
-            stroke="white"
-            strokeWidth={2.5}
-          />
+        <View style={[styles.filterContainer, { backgroundColor: themeColors.bgColor(1) }]}>
+          <Icon.Sliders height={25} width={25} stroke="white" strokeWidth={2.5} />
         </View>
       </View>
 
-      {/* Main*/}
-
+      {/* Main Content */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: 20,
-        }}
+        contentContainerStyle={{ paddingBottom: 20 }}
       >
-        {/* Caegorises*/}
+        {/* Categories */}
         <Categorises />
-        {/* Caegorises*/}
+
+        {/* Featured Restaurants */}
         <View>
-          {featuredRestaurants.map((item, index) => {
-            return (
+          {featuredRestaurants.length > 0 ? (
+            featuredRestaurants.map((item) => (
               <FeaturedRow
-                key={index}
+                key={item._id}
                 title={item.name}
                 restaurant={item.restaurants}
-               
               />
-            );
-          })}
-        </View>
-        {/* Login Button */}
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Login"
-            onPress={() => navigation.navigate("Login")} // Navigate to LoginScreen
-          />
+            ))
+          ) : (
+            <Text style={{ textAlign: "center", marginTop: 20 }}>Loading...</Text>
+          )}
         </View>
       </ScrollView>
+
+      {/* Login Button */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Login")}
+          style={[styles.button, { backgroundColor: themeColors.bgColor(1) }]}
+        >
+          <Text style={styles.buttonText}>Go to Login</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -108,48 +87,64 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f8f8", // Light background
-    paddingHorizontal: 16, // Padding for content
-    paddingTop: 10, // Slight padding for SafeAreaView
+    backgroundColor: "#f8f8f8",
+    paddingHorizontal: 16,
+    paddingTop: 10,
   },
   searchContainer: {
-    flexDirection: "row", // Align items in a row
+    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff", // White background for the search bar
-    borderRadius: 8, // Rounded corners
-    paddingHorizontal: 10, // Internal horizontal padding
-    paddingVertical: 8, // Internal vertical padding
-    shadowColor: "#000", // Shadow for iOS
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Shadow for Android
-    marginVertical: 10, // Space above and below the search bar
+    elevation: 3,
+    marginVertical: 10,
   },
   searchIcon: {
-    marginRight: 8, // Space between the icon and the input field
+    marginRight: 8,
   },
   searchInput: {
-    flex: 1, // Take up remaining space
-    height: 40, // Height of the input field
-    fontSize: 16, // Font size for better readability
-    color: "#000", // Input text color
+    flex: 1,
+    height: 40,
+    fontSize: 16,
+    color: "#000",
   },
   locationContainer: {
-    flexDirection: "row", // Align the location icon and text in a row
-    alignItems: "center", // Vertically align the icon and text
-    marginLeft: 10, // Space between the input and the location section
-    marginRight: 8, // Space between the location section and the filter icon
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 10,
+    marginRight: 8,
   },
   locationText: {
-    fontSize: 14, // Font size for the location text
-    color: "gray", // Subtle color for the location text
-    marginLeft: 4, // Space between the icon and the text
+    fontSize: 14,
+    color: "gray",
+    marginLeft: 4,
   },
   filterContainer: {
-    width: 40, // Circle diameter
-    height: 40, // Circle diameter
-    borderRadius: 20, // Half of width/height to make it circular
-    justifyContent: "center", // Center the icon
-    alignItems: "center", // Center the icon
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonContainer: {
+    margin: 1,
+    alignItems: "center",
+  },
+  button: {
+    width: "100%",
+    paddingVertical: 12,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
